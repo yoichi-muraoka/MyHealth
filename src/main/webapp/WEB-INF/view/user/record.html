@@ -35,9 +35,21 @@
 
   <div class="container mt-3">
     <h1 class="mb-4 d-inline-block">日々の記録</h1>
-    <a class="btn btn-primary mb-4 mt-2 ms-4" href="recordRecord.html">記録を付ける</a>
+    <a class="btn btn-success mb-4 mt-2 ms-4" href="recordRecord.html">記録を付ける</a>
     <div class="row">
-      <div class="col-12">
+      <ul id="display-toggler" class="nav nav-pills mb-3">
+        <li class="nav-item">
+          <a class="nav-link active" href="#table-view">テーブル表示</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#weight-view">体重の変遷</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#exercise-view">運動の内訳</a>
+        </li>
+      </ul>
+
+      <div id="table-view" class="toggle-display col-12">
         <table class="table table-bordered table-hover">
           <thead id="record-head">
             <tr class="bg-light">
@@ -154,10 +166,10 @@
           </tbody>
         </table>
       </div><!-- /.col テーブル -->
-      <div>
+      <div id="weight-view" class="toggle-display hide">
         <canvas id="weight-chart"></canvas>
       </div>
-      <div class="col-md-8 offset-md-2">
+      <div id="exercise-view" class="toggle-display hide col-md-8 offset-md-2">
         <canvas id="exercise-chart"></canvas>
       </div>
     </div><!-- /.row -->
@@ -197,7 +209,7 @@
 </script>
 <script>
   // 体重変遷グラフ表示
-  $(document).ready(function() {
+  function createWeightGraph() {
     // 日付と体重の取得
     const weightLabels = [];
     const weightList = [];
@@ -222,15 +234,15 @@
       options: {}
     };
 
-    const weightChart = new Chart(
+    window.weightChart = new Chart(
       document.getElementById('weight-chart'),
       weightConfig
     );
-  });
+  }
 </script>
 <script>
   // 運動の内訳グラフの表示
-  $(document).ready(function() {
+  function createExerciseGraph() {
     // 運動項目の取得
     const exerciseLabels = [];
     $('#record-head th:nth-child(n + 3):nth-child(-n + 8)').each(function() {
@@ -269,10 +281,37 @@
       data: data,
     };
 
-    const exerciseChart = new Chart(
+    window.exerciseChart = new Chart(
       document.getElementById('exercise-chart'),
       config
     );
+  }
+</script>
+<script>
+  // 表示項目の切り替え
+  $(document).ready(function() {
+    $('#display-toggler .nav-link').click(function() {
+      $('#display-toggler .nav-link').removeClass('active');
+      $(this).addClass('active');
+      $('.toggle-display').hide();
+
+      const showingElementId = $(this).attr('href');
+      $(showingElementId).show(0,'', function() {
+        if(showingElementId === '#weight-view') {
+          if (typeof weightChart !== 'undefined' && weightChart) {
+            weightChart.destroy();
+          }
+          createWeightGraph();
+        }
+        else if(showingElementId === '#exercise-view') {
+          if (typeof exerciseChart !== 'undefined' && exerciseChart) {
+            exerciseChart.destroy();
+          }
+          createExerciseGraph();
+        }
+      });
+      return false;
+    });
   });
 </script>
 </body>

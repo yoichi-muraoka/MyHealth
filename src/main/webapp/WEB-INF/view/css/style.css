@@ -10,3 +10,7 @@ body {
 .logo {
   font-family: 'Righteous', cursive;
 }
+
+.hide {
+  display: none;
+}
