@@ -52,7 +52,7 @@
               <th>情報の編集</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="record">
             <tr class="align-middle">
               <td>2022-07-10</td>
               <td>67.5</td>
@@ -175,15 +175,58 @@
       </div>
     </div>
   </div>
+
+  <div class="container">
+    <canvas id="weight-chart"></canvas>
+  </div>
+
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../js/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+  // 削除ボタン
   $(document).ready(function() {
     $('button.delete').click(function() {
       const date = $(this).parent().parent().children('td:first-child').text();
       $('#delete-link').attr('href', $(this).attr('data-href'));
       $('#modal-date').text(date);
     });
+  });
+</script>
+<script>
+  // 体重変遷グラフ表示
+  $(document).ready(function() {
+    // 日付と体重の取得
+    let weightLabels = [];
+    let weightList = [];
+    $('#record > tr').each(function() {
+      weightLabels.push($(this).children('td:nth-child(1)').text().split('-')[2]);
+      weightList.push(parseFloat($(this).children('td:nth-child(2)').text()));
+    });
+
+    // グラフ作成
+    weightLabels = weightLabels.reverse();
+
+    const weightData = {
+    labels: weightLabels,
+    datasets: [{
+        label: '体重の変遷',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: weightList.reverse(),
+      }]
+    };
+
+    const weightConfig = {
+      type: 'line',
+      data: weightData,
+      options: {}
+    };
+
+    const weightChart = new Chart(
+      document.getElementById('weight-chart'),
+      weightConfig
+    );
   });
 </script>
 </body>
