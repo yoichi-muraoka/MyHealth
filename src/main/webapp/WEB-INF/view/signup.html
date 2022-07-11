@@ -19,6 +19,7 @@
           メールアドレスが未入力です。<br>
           パスワードが未入力です。<br>
           確認用パスワードが一致していません。<br>
+          名前が未入力です。
       </div>
 
       <div class="form-floating">
@@ -34,6 +35,16 @@
       <div class="form-floating mb-3">
         <input type="password" name="confPass" class="form-control border-top-0 rounded-0 rounded-bottom" id="floatingPassword2" placeholder="パスワード(確認用)">
         <label for="floatingPassword2">パスワード(確認用)</label>
+      </div>
+
+      <div class="form-floating">
+        <input type="text" name="name" class="form-control rounded-0 rounded-top" id="floatingName" placeholder="名前">
+        <label for="floatingName">名前</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input type="number" step="0.1" min="30" max="300" value="155.5" name="height" class="form-control border-top-0 rounded-0 rounded-bottom" id="floatingHeight" placeholder="身長">
+        <label for="floatingHeight">身長(cm)</label>
       </div>
 
       <input class="w-100 btn btn-lg btn-primary mb-3" type="submit" value="登録">
