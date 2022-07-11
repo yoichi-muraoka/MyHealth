@@ -10,7 +10,10 @@ public interface UserDao {
 	// ログイン認証用
 	User findByEmailAndPass(String email, String pass) throws Exception;
 	
+	// ユーザー登録
+	void insert(User user) throws Exception;
+	
 	// 身長の変更用
-	void updateHeight(double height) throws Exception;
+	void updateHeight(int id, double height) throws Exception;
 
 }
