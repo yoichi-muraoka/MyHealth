@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="../css/bootstrap.min.css" rel="stylesheet" />
+<link href="../css/style.css" rel="stylesheet" />
+<title>日々の記録 | My Health</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="logo navbar-brand" href="base.html">My Health</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <svg class="mb-1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+              </svg>
+              山田太郎 さん
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="base.html">基本情報</a></li>
+              <li><a class="dropdown-item" href="../login.html">ログアウト</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div><!-- /.container -->
+  </nav>
+
+  <div class="container mt-3">
+    <h1 class="mb-4 d-inline-block">日々の記録</h1>
+    <a class="btn btn-success mb-4 mt-2 ms-4" href="saveRecord.html">記録を付ける</a>
+    <div class="row">
+      <ul id="display-toggler" class="nav nav-pills mb-3">
+        <li class="nav-item">
+          <a class="nav-link active" href="#table-view">テーブル表示</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#weight-view">体重の変遷</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#exercise-view">運動の内訳</a>
+        </li>
+      </ul>
+
+      <div id="table-view" class="toggle-display col-12">
+        <table class="table table-bordered table-hover">
+          <thead id="record-head">
+            <tr class="bg-light">
+              <th>日付</th>
+              <th>体重</th>
+              <th>ウォーク</th>
+              <th>ジョギング</th>
+              <th>プール</th>
+              <th>筋トレ</th>
+              <th>球技</th>
+              <th>その他</th>
+              <th>情報の編集</th>
+            </tr>
+          </thead>
+          <tbody id="record-body">
+            <tr class="align-middle">
+              <td>2022-07-10</td>
+              <td>67.5</td>
+              <td>45</td>
+              <td>0</td>
+              <td>0</td>
+              <td>30</td>
+              <td>0</td>
+              <td>30</td>
+              <td>
+                <a class="btn btn-warning" href="saveRecord.html">変更</a>
+                <button class="btn btn-danger delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-href="delete?id=99">削除</button>
+              </td>
+            </tr>
+            <tr class="align-middle">
+              <td>2022-07-09</td>
+              <td>67.8</td>
+              <td>0</td>
+              <td>20</td>
+              <td>0</td>
+              <td>20</td>
+              <td>0</td>
+              <td>0</td>
+              <td>
+                <a class="btn btn-warning" href="saveRecord.html">変更</a>
+                <button class="btn btn-danger delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-href="delete?id=98">削除</button>
+              </td>
+            </tr>
+            <tr class="align-middle">
+              <td>2022-07-07</td>
+              <td>67.6</td>
+              <td>60</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>
+                <a class="btn btn-warning" href="saveRecord.html">変更</a>
+                <button class="btn btn-danger delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-href="delete?id=97">削除</button>
+              </td>
+            </tr>
+            <tr class="align-middle">
+              <td>2022-07-05</td>
+              <td>68.2</td>
+              <td>45</td>
+              <td>0</td>
+              <td>0</td>
+              <td>30</td>
+              <td>0</td>
+              <td>0</td>
+              <td>
+                <a class="btn btn-warning" href="saveRecord.html">変更</a>
+                <button class="btn btn-danger delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-href="delete?id=96">削除</button>
+              </td>
+            </tr>
+            <tr class="align-middle">
+              <td>2022-07-03</td>
+              <td>68.2</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>80</td>
+              <td>0</td>
+              <td>
+                <a class="btn btn-warning" href="saveRecord.html">変更</a>
+                <button class="btn btn-danger delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-href="delete?id=95">削除</button>
+              </td>
+            </tr>
+            <tr class="align-middle">
+              <td>2022-07-02</td>
+              <td>67.3</td>
+              <td>0</td>
+              <td>60</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>
+                <a class="btn btn-warning" href="saveRecord.html">変更</a>
+                <button class="btn btn-danger delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-href="delete?id=94">削除</button>
+              </td>
+            </tr>
+            <tr class="align-middle">
+              <td>2022-07-01</td>
+              <td>67.5</td>
+              <td>0</td>
+              <td>0</td>
+              <td>50</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>
+                <a class="btn btn-warning" href="saveRecord.html">変更</a>
+                <button class="btn btn-danger delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-href="delete?id=93">削除</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div><!-- /.col テーブル -->
+      <div id="weight-view" class="toggle-display hide">
+        <canvas id="weight-chart"></canvas>
+      </div>
+      <div id="exercise-view" class="toggle-display hide col-md-8 offset-md-2">
+        <canvas id="exercise-chart"></canvas>
+      </div>
+    </div><!-- /.row -->
+  </div><!-- /.container -->
+  
+  <!-- 削除用モーダル -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLabel">記録の削除</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>「<span id="modal-date"></span>」の記録を削除します。よろしいですか？</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+          <a id="delete-link" class="btn btn-danger" href="">削除する</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script src="../js/bootstrap.bundle.min.js"></script>
+<script src="../js/jquery-3.6.0.min.js"></script>
+<script src="../js/chart-3.8.0.min.js"></script>
+<script>
+  // 削除ボタン
+  $(document).ready(function() {
+    $('button.delete').click(function() {
+      const date = $(this).parent().parent().children('td:first-child').text();
+      $('#delete-link').attr('href', $(this).attr('data-href'));
+      $('#modal-date').text(date);
+    });
+  });
+</script>
+<script>
+  // 体重変遷グラフ表示
+  function createWeightGraph() {
+    // 日付と体重の取得
+    const weightLabels = [];
+    const weightList = [];
+    $('#record-body > tr').each(function() {
+      weightLabels.push($(this).children('td:nth-child(1)').text().split('-')[2]);
+      weightList.push(parseFloat($(this).children('td:nth-child(2)').text()));
+    });
+
+    const weightData = {
+    labels: weightLabels.reverse(),
+    datasets: [{
+        label: '体重の変遷',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: weightList.reverse(),
+      }]
+    };
+
+    const weightConfig = {
+      type: 'line',
+      data: weightData,
+      options: {}
+    };
+
+    window.weightChart = new Chart(
+      document.getElementById('weight-chart'),
+      weightConfig
+    );
+  }
+</script>
+<script>
+  // 運動の内訳グラフの表示
+  function createExerciseGraph() {
+    // 運動項目の取得
+    const exerciseLabels = [];
+    $('#record-head th:nth-child(n + 3):nth-child(-n + 8)').each(function() {
+      exerciseLabels.push($(this).text());
+    });
+    
+    // 各項目の合計値
+    const exerciseAmount = [0, 0, 0, 0, 0, 0];
+    $('#record-body tr').each(function() {
+      let i = 0;
+      $(this).children('td:nth-child(n + 3):nth-child(-n + 8)').each(function() {
+        exerciseAmount[i] += parseFloat($(this).text());
+        i++;
+      });
+    });
+
+    const data = {
+      labels: exerciseLabels,
+      datasets: [{
+        label: 'My First Dataset',
+        data: exerciseAmount,
+        backgroundColor: [
+          '#845EC2',
+          '#FF6F91',
+          '#FFC75F',
+          '#D65DB1',
+          '#FF9671',
+          '#F9F871'
+        ],
+        hoverOffset: 4
+      }]
+    };
+
+    const config = {
+      type: 'doughnut',
+      data: data,
+    };
+
+    window.exerciseChart = new Chart(
+      document.getElementById('exercise-chart'),
+      config
+    );
+  }
+</script>
+<script>
+  // 表示項目の切り替え
+  $(document).ready(function() {
+    $('#display-toggler .nav-link').click(function() {
+      $('#display-toggler .nav-link').removeClass('active');
+      $(this).addClass('active');
+      $('.toggle-display').hide();
+
+      const showingElementId = $(this).attr('href');
+      $(showingElementId).show(0,'', function() {
+        if(showingElementId === '#weight-view') {
+          if (typeof weightChart !== 'undefined' && weightChart) {
+            weightChart.destroy();
+          }
+          createWeightGraph();
+        }
+        else if(showingElementId === '#exercise-view') {
+          if (typeof exerciseChart !== 'undefined' && exerciseChart) {
+            exerciseChart.destroy();
+          }
+          createExerciseGraph();
+        }
+      });
+      return false;
+    });
+  });
+</script>
+</body>
+</html>
