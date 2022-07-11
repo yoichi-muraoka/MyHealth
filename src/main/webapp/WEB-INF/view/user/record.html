@@ -39,7 +39,7 @@
     <div class="row">
       <div class="col-12">
         <table class="table table-bordered table-hover">
-          <thead>
+          <thead id="record-head">
             <tr class="bg-light">
               <th>日付</th>
               <th>体重</th>
@@ -52,7 +52,7 @@
               <th>情報の編集</th>
             </tr>
           </thead>
-          <tbody id="record">
+          <tbody id="record-body">
             <tr class="align-middle">
               <td>2022-07-10</td>
               <td>67.5</td>
@@ -153,8 +153,14 @@
             </tr>
           </tbody>
         </table>
+      </div><!-- /.col テーブル -->
+      <div>
+        <canvas id="weight-chart"></canvas>
       </div>
-    </div>
+      <div class="col-md-8 offset-md-2">
+        <canvas id="exercise-chart"></canvas>
+      </div>
+    </div><!-- /.row -->
   </div><!-- /.container -->
   
   <!-- 削除用モーダル -->
@@ -176,13 +182,9 @@
     </div>
   </div>
 
-  <div class="container">
-    <canvas id="weight-chart"></canvas>
-  </div>
-
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../js/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="../js/chart-3.8.0.min.js"></script>
 <script>
   // 削除ボタン
   $(document).ready(function() {
@@ -197,18 +199,15 @@
   // 体重変遷グラフ表示
   $(document).ready(function() {
     // 日付と体重の取得
-    let weightLabels = [];
-    let weightList = [];
-    $('#record > tr').each(function() {
+    const weightLabels = [];
+    const weightList = [];
+    $('#record-body > tr').each(function() {
       weightLabels.push($(this).children('td:nth-child(1)').text().split('-')[2]);
       weightList.push(parseFloat($(this).children('td:nth-child(2)').text()));
     });
 
-    // グラフ作成
-    weightLabels = weightLabels.reverse();
-
     const weightData = {
-    labels: weightLabels,
+    labels: weightLabels.reverse(),
     datasets: [{
         label: '体重の変遷',
         backgroundColor: 'rgb(255, 99, 132)',
@@ -226,6 +225,53 @@
     const weightChart = new Chart(
       document.getElementById('weight-chart'),
       weightConfig
+    );
+  });
+</script>
+<script>
+  // 運動の内訳グラフの表示
+  $(document).ready(function() {
+    // 運動項目の取得
+    const exerciseLabels = [];
+    $('#record-head th:nth-child(n + 3):nth-child(-n + 8)').each(function() {
+      exerciseLabels.push($(this).text());
+    });
+    
+    // 各項目の合計値
+    const exerciseAmount = [0, 0, 0, 0, 0, 0];
+    $('#record-body tr').each(function() {
+      let i = 0;
+      $(this).children('td:nth-child(n + 3):nth-child(-n + 8)').each(function() {
+        exerciseAmount[i] += parseFloat($(this).text());
+        i++;
+      });
+    });
+
+    const data = {
+      labels: exerciseLabels,
+      datasets: [{
+        label: 'My First Dataset',
+        data: exerciseAmount,
+        backgroundColor: [
+          '#845EC2',
+          '#FF6F91',
+          '#FFC75F',
+          '#D65DB1',
+          '#FF9671',
+          '#F9F871'
+        ],
+        hoverOffset: 4
+      }]
+    };
+
+    const config = {
+      type: 'doughnut',
+      data: data,
+    };
+
+    const exerciseChart = new Chart(
+      document.getElementById('exercise-chart'),
+      config
     );
   });
 </script>
