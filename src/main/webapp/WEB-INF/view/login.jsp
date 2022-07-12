@@ -6,8 +6,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="<%= request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet" />
-<link href="<%= request.getContextPath() %>/css/style.css" rel="stylesheet" />
+<c:import url="parts/commonCss.jsp" />
 <title>ログイン | My Health</title>
 </head>
 <body>
@@ -41,7 +40,6 @@
     </div>
   </div>
 </div><!-- /.container -->
-<script src="<%= request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
-<script src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
+<c:import url="parts/commonJs.jsp" />
 </body>
 </html>

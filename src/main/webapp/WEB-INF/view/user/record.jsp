@@ -1,42 +1,20 @@
+<%@ page pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="../css/bootstrap.min.css" rel="stylesheet" />
-<link href="../css/style.css" rel="stylesheet" />
+<c:import url="../parts/commonCss.jsp" />
 <title>日々の記録 | My Health</title>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-      <a class="logo navbar-brand" href="base.html">My Health</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <svg class="mb-1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-              </svg>
-              山田太郎 さん
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="base.html">基本情報</a></li>
-              <li><a class="dropdown-item" href="../login.html">ログアウト</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div><!-- /.container -->
-  </nav>
+  <c:import url="navbar.jsp" />
 
   <div class="container mt-3">
     <h1 class="mb-4 d-inline-block">日々の記録</h1>
-    <a class="btn btn-success mb-4 mt-2 ms-4" href="saveRecord.html">記録を付ける</a>
+    <a class="btn btn-success mb-4 mt-2 ms-4" href="<%= request.getContextPath() %>/user/addRecord">記録を付ける</a>
     <div class="row">
       <ul id="display-toggler" class="nav nav-pills mb-3">
         <li class="nav-item">
@@ -66,104 +44,28 @@
             </tr>
           </thead>
           <tbody id="record-body">
+            <c:if test="${empty records}">
+            <tr>
+              <td colspan="9">記録はありません</td>
+            </tr>
+            </c:if>
+            
+            <c:forEach items="${records}" var="record">
             <tr class="align-middle">
-              <td>2022-07-10</td>
-              <td>67.5</td>
-              <td>45</td>
-              <td>0</td>
-              <td>0</td>
-              <td>30</td>
-              <td>0</td>
-              <td>30</td>
+              <td><fmt:formatDate value="${record.registered}" pattern="y-MM-dd" /></td>
+              <td><c:out value="${record.weight}" /></td>
+              <td><c:out value="${record.walk}" /></td>
+              <td><c:out value="${record.jogging}" /></td>
+              <td><c:out value="${record.pool}" /></td>
+              <td><c:out value="${record.training}" /></td>
+              <td><c:out value="${record.ball}" /></td>
+              <td><c:out value="${record.other}" /></td>
               <td>
-                <a class="btn btn-warning" href="saveRecord.html">変更</a>
-                <button class="btn btn-danger delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-href="delete?id=99">削除</button>
+                <a class="btn btn-warning" href="<%= request.getContextPath() %>/user/editRecord?id=<c:out value="${record.id}" />">変更</a>
+                <button class="btn btn-danger delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-href="<%= request.getContextPath() %>/user/delete?id=<c:out value="${record.id}" />">削除</button>
               </td>
             </tr>
-            <tr class="align-middle">
-              <td>2022-07-09</td>
-              <td>67.8</td>
-              <td>0</td>
-              <td>20</td>
-              <td>0</td>
-              <td>20</td>
-              <td>0</td>
-              <td>0</td>
-              <td>
-                <a class="btn btn-warning" href="saveRecord.html">変更</a>
-                <button class="btn btn-danger delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-href="delete?id=98">削除</button>
-              </td>
-            </tr>
-            <tr class="align-middle">
-              <td>2022-07-07</td>
-              <td>67.6</td>
-              <td>60</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>
-                <a class="btn btn-warning" href="saveRecord.html">変更</a>
-                <button class="btn btn-danger delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-href="delete?id=97">削除</button>
-              </td>
-            </tr>
-            <tr class="align-middle">
-              <td>2022-07-05</td>
-              <td>68.2</td>
-              <td>45</td>
-              <td>0</td>
-              <td>0</td>
-              <td>30</td>
-              <td>0</td>
-              <td>0</td>
-              <td>
-                <a class="btn btn-warning" href="saveRecord.html">変更</a>
-                <button class="btn btn-danger delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-href="delete?id=96">削除</button>
-              </td>
-            </tr>
-            <tr class="align-middle">
-              <td>2022-07-03</td>
-              <td>68.2</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>80</td>
-              <td>0</td>
-              <td>
-                <a class="btn btn-warning" href="saveRecord.html">変更</a>
-                <button class="btn btn-danger delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-href="delete?id=95">削除</button>
-              </td>
-            </tr>
-            <tr class="align-middle">
-              <td>2022-07-02</td>
-              <td>67.3</td>
-              <td>0</td>
-              <td>60</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>
-                <a class="btn btn-warning" href="saveRecord.html">変更</a>
-                <button class="btn btn-danger delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-href="delete?id=94">削除</button>
-              </td>
-            </tr>
-            <tr class="align-middle">
-              <td>2022-07-01</td>
-              <td>67.5</td>
-              <td>0</td>
-              <td>0</td>
-              <td>50</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>
-                <a class="btn btn-warning" href="saveRecord.html">変更</a>
-                <button class="btn btn-danger delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-href="delete?id=93">削除</button>
-              </td>
-            </tr>
+            </c:forEach>
           </tbody>
         </table>
       </div><!-- /.col テーブル -->
@@ -195,9 +97,8 @@
     </div>
   </div>
 
-<script src="../js/bootstrap.bundle.min.js"></script>
-<script src="../js/jquery-3.6.0.min.js"></script>
-<script src="../js/chart-3.8.0.min.js"></script>
+<c:import url="../parts/commonJs.jsp" />
+<script src="<%= request.getContextPath() %>/js/chart-3.8.0.min.js"></script>
 <script>
   // 削除ボタン
   $(document).ready(function() {

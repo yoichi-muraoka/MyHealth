@@ -13,3 +13,16 @@ CREATE TABLE users (
   email VARCHAR(255) UNIQUE KEY NOT NULL,
   pass CHAR(60) NOT NULL
 );
+
+CREATE TABLE daily_records (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  registered DATETIME NOT NULL,
+  weight DOUBLE NOT NULL,
+  walk INT DEFAULT 0,
+  jogging INT DEFAULT 0,
+  pool INT DEFAULT 0,
+  training INT DEFAULT 0,
+  ball INT DEFAULT 0,
+  other INT DEFAULT 0
+);

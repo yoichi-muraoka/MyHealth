@@ -9,6 +9,10 @@ public class DaoFactory {
   public static UserDao createUserDao() {
     return new UserDaoImpl(getDataSource());
   }
+  
+  public static DailyRecordDao createDailyRecordDao() {
+	  return new DailyRecordDaoImpl(getDataSource());
+  }
 
   private static DataSource getDataSource() {
     InitialContext ctx = null;
