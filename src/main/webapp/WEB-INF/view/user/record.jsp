@@ -62,7 +62,7 @@
               <td><c:out value="${record.other}" /></td>
               <td>
                 <a class="btn btn-warning" href="<%= request.getContextPath() %>/user/editRecord?id=<c:out value="${record.id}" />">変更</a>
-                <button class="btn btn-danger delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-href="<%= request.getContextPath() %>/user/delete?id=<c:out value="${record.id}" />">削除</button>
+                <button class="btn btn-danger delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-href="<%= request.getContextPath() %>/user/deleteRecord?id=<c:out value="${record.id}" />">削除</button>
               </td>
             </tr>
             </c:forEach>
