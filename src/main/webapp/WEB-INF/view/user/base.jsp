@@ -47,7 +47,7 @@
               </c:choose></td>
           </tr>
         </table>
-        <a class="btn btn-primary" href="record.html">日々の記録</a>
+        <a class="btn btn-primary" href="<%= request.getContextPath() %>/user/showRecord">日々の記録</a>
       </div>
     </div>
   </div><!-- /.container -->
