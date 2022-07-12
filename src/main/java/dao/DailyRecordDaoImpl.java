@@ -70,8 +70,15 @@ public class DailyRecordDaoImpl implements DailyRecordDao {
 
 	@Override
 	public void delete(int id, int userId) throws Exception {
-		// TODO 自動生成されたメソッド・スタブ
-		
+	    try (Connection con = ds.getConnection()) {
+	      String sql = "DELETE FROM daily_records WHERE id = ? AND user_id = ?";
+	      PreparedStatement stmt = con.prepareStatement(sql);
+	      stmt.setInt(1, id);
+	      stmt.setInt(2, userId);
+	      stmt.executeUpdate();
+	    } catch (Exception e) {
+	      throw e;
+	    }	
 	}
 
 	protected DailyRecord mapToDailyRecord(ResultSet rs) throws Exception {
