@@ -14,5 +14,8 @@ public interface DailyRecordDao {
 	void insert(DailyRecord record) throws Exception; 
 	void update(DailyRecord record) throws Exception; 
 	void delete(int id, int userId) throws Exception; 
+	
+	// idを元に1件分の記録を取得
+	DailyRecord findById(int id, int userId) throws Exception;
 
 }
