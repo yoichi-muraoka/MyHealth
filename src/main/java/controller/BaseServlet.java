@@ -31,7 +31,7 @@ public class BaseServlet extends HttpServlet {
 		
 		try {
 			DailyRecord record = DaoFactory.createDailyRecordDao().findLatestRecord(user.getId());
-			weight = record.getWeight();
+			weight = record != null ? record.getWeight() : null;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
