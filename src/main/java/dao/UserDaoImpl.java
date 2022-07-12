@@ -59,8 +59,15 @@ public class UserDaoImpl implements UserDao {
 	
 	@Override
 	public void updateHeight(int id, double height) throws Exception {
-		// TODO 自動生成されたメソッド・スタブ
-
+	    try (Connection con = ds.getConnection()) {
+	      String sql = "UPDATE users SET height = ? WHERE id = ?";
+	      PreparedStatement stmt = con.prepareStatement(sql);
+	      stmt.setDouble(1, height);
+	      stmt.setInt(2, id);
+	      stmt.executeUpdate();
+	    } catch (Exception e) {
+	      throw e;
+	    }
 	}
 
 	protected User mapToUser(ResultSet rs) throws Exception {

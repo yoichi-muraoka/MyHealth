@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.DaoFactory;
 import domain.User;
 
 /**
@@ -57,8 +58,21 @@ public class BaseServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		// セッションからユーザーのIDを取得
+		User user = (User) request.getSession().getAttribute("user");
+		int id = user.getId();
+		
+		// フォームから身長を取得
+		double height = Double.parseDouble(request.getParameter("height"));
+		
+		// データベースに登録
+		try {
+			DaoFactory.createUserDao().updateHeight(id, height);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		response.sendRedirect(request.getContextPath() + "/user/base");
 	}
 
 }
