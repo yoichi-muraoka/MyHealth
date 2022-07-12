@@ -14,7 +14,7 @@ import domain.User;
 /**
  * Servlet implementation class DeleteRecordServlet
  */
-@WebServlet("/user/delete")
+@WebServlet("/user/deleteRecord")
 public class DeleteRecordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
