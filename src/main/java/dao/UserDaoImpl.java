@@ -54,7 +54,8 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public void insert(User user) throws Exception {
 		try (Connection con = ds.getConnection()) {
-			String sql = "INSERT INTO users (name, height, email, pass)";
+			String sql = "INSERT INTO users (name, height, email, pass) "
+					+ " VALUES (?, ?, ?, ?)";
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, user.getName());
 			stmt.setDouble(2, user.getHeight());
