@@ -1,0 +1,5 @@
+■ server.xmlに以下を追記
+<Resource driverClassName="com.mysql.cj.jdbc.Driver" initialSize="1" maxIdle="3" maxTotal="5" maxWaitMillis="5000" name="jdbc/myhealth_db" password="" type="javax.sql.DataSource" url="jdbc:mysql://127.0.0.1:3306/myhealth_db?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone= Asia/Tokyo" username="root" validationQuery="SELECT 1"/>
+
+■ context.xmlに以下を追記
+<ResourceLink name="jdbc/myhealth_db" global="jdbc/myhealth_db" type="javax.sql.DataSource" />
