@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.DaoFactory;
+import domain.DailyRecord;
 import domain.User;
 
 /**
@@ -26,7 +27,15 @@ public class BaseServlet extends HttpServlet {
 		User user = (User) request.getSession().getAttribute("user");
 		
 		// DBから最新の体重を取得⇒BMI値を計算する
-		Double weight = 67.5; // 仮の体重
+		Double weight = null;
+		
+		try {
+			DailyRecord record = DaoFactory.createDailyRecordDao().findLatestRecord(user.getId());
+			weight = record.getWeight();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		Double bmi = null;
 		if(weight != null && weight > 0) {
 			double height = user.getHeight() / 100; // 身長をメートルに変換
