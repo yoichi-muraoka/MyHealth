@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -19,8 +20,21 @@ public class DailyRecordDaoImpl implements DailyRecordDao {
 
 	@Override
 	public List<DailyRecord> findNewerRecords(int userId) throws Exception {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		List<DailyRecord> records = new ArrayList<>();
+	    try (Connection con = ds.getConnection()) {
+	      String sql = "SELECT * FROM daily_records WHERE user_id = ? "
+	      		+ " ORDER BY registered DESC, id DESC "
+	      		+ " LIMIT 100";
+	      PreparedStatement stmt = con.prepareStatement(sql);
+	      stmt.setInt(1, userId);
+	      ResultSet rs = stmt.executeQuery();
+	      while (rs.next()) {
+	        records.add(mapToDailyRecord(rs));
+	      }
+	    } catch (Exception e) {
+	      throw e;
+	    }
+	    return records;
 	}
 
 	@Override
