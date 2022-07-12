@@ -1,16 +1,18 @@
+<%@ page pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="../css/bootstrap.min.css" rel="stylesheet" />
-<link href="../css/style.css" rel="stylesheet" />
+<c:import url="../parts/commonCss.jsp" />
 <title>My Health</title>
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <a class="logo navbar-brand" href="base.html">My Health</a>
+      <a class="logo navbar-brand" href="<%= request.getContextPath() %>/user/base">My Health</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -22,11 +24,11 @@
                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
               </svg>
-              山田太郎 さん
+              <c:out value="${user.name}" /> さん
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="base.html">基本情報</a></li>
-              <li><a class="dropdown-item" href="../login.html">ログアウト</a></li>
+              <li><a class="dropdown-item" href="<%= request.getContextPath() %>/user/base">基本情報</a></li>
+              <li><a class="dropdown-item" href="<%= request.getContextPath() %>/logout">ログアウト</a></li>
             </ul>
           </li>
         </ul>
@@ -41,16 +43,32 @@
         <table class="table table-bordered">
           <tr class="align-middle">
             <th>身長</th>
-            <td><span id="current-height">168.3</span>cm 
+            <td><span id="current-height">${user.height}</span>cm 
               <button class="btn btn-warning ms-4" data-bs-toggle="modal" data-bs-target="#heightModal" id="change-height">変更</button></td>
           </tr>
           <tr>
             <th>体重</th>
-            <td>67.5kg</td>
+            <td>
+              <c:choose>
+                <c:when test="${!empty weight}">
+                  <c:out value="${weight}" /> kg
+                </c:when>
+                <c:otherwise>
+                  記録なし                
+                </c:otherwise>
+              </c:choose>
+            </td>
           </tr>
           <tr>
             <th>BMI</th>
-            <td>28.83 (適正)</td>
+            <td><c:choose>
+                <c:when test="${!empty bmi}">
+                  <c:out value="${bmi}" /> (<c:out value="${bmiMessage}" /> )
+                </c:when>
+                <c:otherwise>
+                  <c:out value="${bmiMessage}" />              
+                </c:otherwise>
+              </c:choose></td>
           </tr>
         </table>
         <a class="btn btn-primary" href="record.html">日々の記録</a>
@@ -79,8 +97,7 @@
       </div>
     </div>
   </div>
-<script src="../js/bootstrap.bundle.min.js"></script>
-<script src="../js/jquery-3.6.0.min.js"></script>
+<c:import url="../parts/commonJs.jsp" />
 <script>
   // 身長変更用モーダル
   $(document).ready(function() {

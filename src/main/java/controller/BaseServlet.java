@@ -30,6 +30,7 @@ public class BaseServlet extends HttpServlet {
 		if(weight != null && weight > 0) {
 			double height = user.getHeight() / 100; // 身長をメートルに変換
 			bmi = weight / (height * height);
+			bmi = Math.floor(bmi * 100) / 100; // 小数点第二位までにする
 		}
 		
 		String bmiMessage;
