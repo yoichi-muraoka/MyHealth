@@ -28,6 +28,7 @@ public class EditRecordServlet extends HttpServlet {
 			Integer id = Integer.parseInt(request.getParameter("id"));
 			DailyRecord record = DaoFactory.createDailyRecordDao().findById(id, user.getId());
 			request.setAttribute("record", record);
+			request.setAttribute("title", "日々の記録編集");
 			request.getRequestDispatcher("/WEB-INF/view/user/saveRecord.jsp").forward(request, response);
 		} catch(Exception e) {
 			e.printStackTrace();

@@ -7,13 +7,13 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <c:import url="../parts/commonCss.jsp" />
-<title>日々の記録追加 | My Health</title>
+<title><c:out value="${title}" /> | My Health</title>
 </head>
 <body>
   <c:import url="navbar.jsp" />
 
   <div class="container mt-3">
-    <h1 class="mb-4">日々の記録追加</h1>
+    <h1 class="mb-4"><c:out value="${title}" /></h1>
     <form action="" method="post">
     <div class="row">
         <div class="col-12 mb-3">体重: <input name="weight" type="number" value="<c:out value="${record.weight}" />" step="0.1" min="1" max="300"> kg</div>

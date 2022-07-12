@@ -45,6 +45,7 @@ public class AddRecordServlet extends HttpServlet {
 		record.setWeight(latestRecord != null ? latestRecord.getWeight() : 55.5);
 		
 		request.setAttribute("record", record);
+		request.setAttribute("title", "日々の記録追加");
 		request.getRequestDispatcher("/WEB-INF/view/user/saveRecord.jsp").forward(request, response);
 	}
 
