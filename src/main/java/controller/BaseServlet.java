@@ -77,6 +77,7 @@ public class BaseServlet extends HttpServlet {
 		// データベースに登録
 		try {
 			DaoFactory.createUserDao().updateHeight(id, height);
+			user.setHeight(height); // セッション内の身長にも反映
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
