@@ -1,10 +1,12 @@
+<%@ page pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="css/bootstrap.min.css" rel="stylesheet" />
-<link href="css/style.css" rel="stylesheet" />
+<c:import url="parts/commonCss.jsp" />
 <title>新規登録 | My Health</title>
 </head>
 <body>
@@ -14,21 +16,22 @@
       <form action="" method="post">
       <h1 class="logo text-center mb-3 fw-normal">My Health</h1>
       <h2 class="text-center">新規登録</h2>
+      <c:if test="${!empty errors}">
       <div class="alert alert-danger" role="alert">
-          すでに登録済みのメールアドレスです。<br>
-          メールアドレスが未入力です。<br>
-          パスワードが未入力です。<br>
-          確認用パスワードが一致していません。<br>
-          名前が未入力です。
+          <c:forEach items="${errors}" var="error" varStatus="vs">
+            <c:out value="${error}" />
+            <c:out value="${vs.last ? '' : '<br>'}" escapeXml="false" />
+          </c:forEach>
       </div>
+      </c:if>
 
       <div class="form-floating">
-        <input type="text" name="email" class="form-control rounded-0 rounded-top" id="floatingInput" placeholder="メールアドレス">
+        <input type="text" value="<c:out value="${email}" />" name="email" class="form-control rounded-0 rounded-top" id="floatingInput" placeholder="メールアドレス">
         <label for="floatingInput">メールアドレス</label>
       </div>
       
       <div class="form-floating">
-        <input type="password" name="loginPass" class="form-control border-top-0 rounded-0" id="floatingPassword" placeholder="パスワード">
+        <input type="password" name="pass" class="form-control border-top-0 rounded-0" id="floatingPassword" placeholder="パスワード">
         <label for="floatingPassword">パスワード</label>
       </div>
 
@@ -38,24 +41,23 @@
       </div>
 
       <div class="form-floating">
-        <input type="text" name="name" class="form-control rounded-0 rounded-top" id="floatingName" placeholder="名前">
+        <input type="text" value="<c:out value="${name}" />" name="name" class="form-control rounded-0 rounded-top" id="floatingName" placeholder="名前">
         <label for="floatingName">名前</label>
       </div>
 
       <div class="form-floating mb-3">
-        <input type="number" step="0.1" min="30" max="300" value="155.5" name="height" class="form-control border-top-0 rounded-0 rounded-bottom" id="floatingHeight" placeholder="身長">
+        <input type="number" step="0.1" min="30" max="300" value="<c:out value="${height}" />" name="height" class="form-control border-top-0 rounded-0 rounded-bottom" id="floatingHeight" placeholder="身長">
         <label for="floatingHeight">身長(cm)</label>
       </div>
 
       <input class="w-100 btn btn-lg btn-primary mb-3" type="submit" value="登録">
       
-      <a class="w-100 btn btn-lg btn-secondary mb-3" href="login.html">ログイン</a>
+      <a class="w-100 btn btn-lg btn-secondary mb-3" href="<%= request.getContextPath() %>/login">ログイン</a>
       <p class="text-center text-muted">&copy; Somebody Somewhere</p>
       </form>
     </div>
   </div>
 </div><!-- /.container -->
-<script src="js/bootstrap.bundle.min.js"></script>
-<script src="js/jquery-3.6.0.min.js"></script>
+<c:import url="parts/commonJs.jsp" />
 </body>
 </html>
