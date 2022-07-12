@@ -58,8 +58,23 @@ public class DailyRecordDaoImpl implements DailyRecordDao {
 
 	@Override
 	public void insert(DailyRecord record) throws Exception {
-		// TODO 自動生成されたメソッド・スタブ
-		
+		try (Connection con = ds.getConnection()) {
+		      String sql = "INSERT INTO daily_records "
+		      		+ " (user_id, weight, walk, jogging, pool, training, ball, other, registered) "
+		      		+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())";
+		      PreparedStatement stmt = con.prepareStatement(sql);
+		      stmt.setInt(1, record.getUserId());
+		      stmt.setDouble(2, record.getWeight());
+		      stmt.setInt(3, record.getWalk());
+		      stmt.setInt(4, record.getJogging());
+		      stmt.setInt(5, record.getPool());
+		      stmt.setInt(6, record.getTraining());
+		      stmt.setInt(7, record.getBall());
+		      stmt.setInt(8, record.getOther());
+		      stmt.executeUpdate();
+		    } catch (Exception e) {
+		      throw e;
+		    }	
 	}
 
 	@Override
